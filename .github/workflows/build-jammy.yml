@@ -25,4 +25,3 @@ jobs:
             scripts/ubuntu-from-scratch.iso
             scripts/image/md5sum.txt
           retention-days: 7
-          retention-days: ignore
