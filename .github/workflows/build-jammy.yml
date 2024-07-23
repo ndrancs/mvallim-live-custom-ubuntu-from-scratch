@@ -1,0 +1,28 @@
+name: build-jammy-22.04
+
+on:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Now
+        run: |
+          cd scripts
+          sed -i -E 's/TARGET_UBUNTU_VERSION=(.*)/TARGET_UBUNTU_VERSION="jammy"/g' default_config.sh
+          ./build.sh -
+          cd ..
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ubuntu-from-scratch
+          path: |
+            scripts/ubuntu-from-scratch.iso
+            scripts/image/md5sum.txt
+          retention-days: 7
+          retention-days: ignore
